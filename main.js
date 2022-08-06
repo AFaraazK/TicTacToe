@@ -17,7 +17,7 @@ const Gameboard = (function(){
         });
         (pc.ownershipX).length = 0;
         (pc.ownershipO).length = 0;
-        document.querySelector(".winner").innerHTML = "Winner: ...";
+        document.querySelector(".winner").innerHTML = "Player X's Turn";
     }
 
     return {resetBoard};
@@ -44,10 +44,12 @@ const Game = (function(){
     function swapTurns(){
         if(circleTurn){
             circleTurn = false;
+            document.querySelector(".winner").innerHTML = "Player X's Turn";
             this.currentSymbol = "X";
 
         } else {
             circleTurn = true;
+            document.querySelector(".winner").innerHTML = "Player O's Turn";
             this.currentSymbol = "O";
         }
     }
