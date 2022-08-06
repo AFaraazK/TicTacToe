@@ -1,8 +1,5 @@
 let pc = new Player();
 
-// Gameboard object (module)
-// add eventListeners to each square to listen for click
-// renderBoard() - loops through array, fills in the pieces
 const Gameboard = (function(){
     const squares = document.querySelectorAll(".square");
     squares.forEach(square => {
@@ -17,7 +14,7 @@ const Gameboard = (function(){
         });
         (pc.ownershipX).length = 0;
         (pc.ownershipO).length = 0;
-        document.querySelector(".winner").innerHTML = "Player X's Turn";
+        document.querySelector(".winner").innerHTML = "Winner: ...";
     }
 
     return {resetBoard};
@@ -36,6 +33,9 @@ const Game = (function(){
         ["0","1","2"],
         ["3","4","5"],
         ["6","7","8"],
+        ["0","3","6"],
+        ["2","5","8"],
+        ["1","4","7"],
         ["0","4","8"],
         ["2","4","6"]
     ];
@@ -44,19 +44,18 @@ const Game = (function(){
     function swapTurns(){
         if(circleTurn){
             circleTurn = false;
-            document.querySelector(".winner").innerHTML = "Player X's Turn";
             this.currentSymbol = "X";
 
         } else {
             circleTurn = true;
-            document.querySelector(".winner").innerHTML = "Player O's Turn";
             this.currentSymbol = "O";
         }
+        //console.log(circleTurn);
     }
-
-    function _displayWinner(winner){
-        const winnerText = document.querySelector(".winner");
-        winnerText.innerHTML = `Winner: ${winner}`;
+    function checkDraw(){
+        if((pc.ownershipO.length +  pc.ownershipX.length) == 9){
+            document.querySelector(".winner").innerHTML = "DRAW";
+        }
     }
 
     function checkWinner(){
@@ -65,12 +64,20 @@ const Game = (function(){
         // ownershipX or ownershipY
         // if winner, change bottom text
 
+        function _displayWinner(winner){
+            const winnerText = document.querySelector(".winner");
+            winnerText.innerHTML = `Winner: ${winner}`;
+        }
+
         // If X won
         if((pc.ownershipX).includes("1") && (pc.ownershipX).includes("2") && (pc.ownershipX).includes("0")){_displayWinner("X");}
         else if((pc.ownershipX).includes("3") && (pc.ownershipX).includes("4") && (pc.ownershipX).includes("5")){_displayWinner("X");}
         else if((pc.ownershipX).includes("0") && (pc.ownershipX).includes("4") && (pc.ownershipX).includes("8")){_displayWinner("X");}
         else if((pc.ownershipX).includes("2") && (pc.ownershipX).includes("4") && (pc.ownershipX).includes("6")){_displayWinner("X");}
         else if((pc.ownershipX).includes("6") && (pc.ownershipX).includes("7") && (pc.ownershipX).includes("8")){_displayWinner("X");}
+        else if((pc.ownershipX).includes("0") && (pc.ownershipX).includes("3") && (pc.ownershipX).includes("6")){_displayWinner("X");}
+        else if((pc.ownershipX).includes("2") && (pc.ownershipX).includes("5") && (pc.ownershipX).includes("8")){_displayWinner("X");}
+        else if((pc.ownershipX).includes("1") && (pc.ownershipX).includes("7") && (pc.ownershipX).includes("4")){_displayWinner("X");}
 
         // If O won
         if((pc.ownershipO).includes("1") && (pc.ownershipO).includes("2") && (pc.ownershipO).includes("0")){_displayWinner("O");}
@@ -78,9 +85,12 @@ const Game = (function(){
         else if((pc.ownershipO).includes("0") && (pc.ownershipO).includes("4") && (pc.ownershipO).includes("8")){_displayWinner("O");}
         else if((pc.ownershipO).includes("2") && (pc.ownershipO).includes("4") && (pc.ownershipO).includes("6")){_displayWinner("O");}
         else if((pc.ownershipO).includes("6") && (pc.ownershipO).includes("7") && (pc.ownershipO).includes("8")){_displayWinner("O");}
+        else if((pc.ownershipO).includes("2") && (pc.ownershipO).includes("5") && (pc.ownershipO).includes("8")){_displayWinner("O");}
+        else if((pc.ownershipO).includes("1") && (pc.ownershipO).includes("7") && (pc.ownershipO).includes("4")){_displayWinner("O");}
+        else if((pc.ownershipO).includes("0") && (pc.ownershipO).includes("3") && (pc.ownershipO).includes("6")){_displayWinner("O");}
     }
 
-    return{swapTurns,currentSymbol,checkWinner};
+    return{swapTurns,currentSymbol,checkWinner,checkDraw};
 })();
 
 // Player Object  (factory function)
@@ -111,6 +121,7 @@ function Player(){
             }
             square.innerHTML = Game.currentSymbol;
             Game.swapTurns();
+            Game.checkDraw();
             Game.checkWinner();
         }
     }
