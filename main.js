@@ -45,11 +45,21 @@ const Game = (function(){
 function Player(symbol){
     let ownership = [];
     this.symbol = symbol;
+
+    function verifyClick(square){
+        if(square.innerHTML == ""){
+            return true;
+        } else {
+            return false;
+        }
+    }
     function playerClick(square){
-        ownership.push(square.id);
-        square.innerHTML = Game.currentSymbol;
-        console.log(ownership);
-        Game.swapTurns();
+        if(verifyClick(square)){    
+            ownership.push(square.id);
+            square.innerHTML = Game.currentSymbol;
+            console.log(ownership);
+            Game.swapTurns();
+        }
     }
     return {playerClick,symbol,ownership};
 };
