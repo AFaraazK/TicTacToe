@@ -14,6 +14,7 @@ const Gameboard = (function(){
         });
         (pc.ownershipX).length = 0;
         (pc.ownershipO).length = 0;
+        document.querySelector(".turn").innerHTML = "X";
         document.querySelector(".winner").innerHTML = "Winner: ...";
     }
 
@@ -44,10 +45,12 @@ const Game = (function(){
     function swapTurns(){
         if(circleTurn){
             circleTurn = false;
+            document.querySelector(".turn").innerHTML = "X";
             this.currentSymbol = "X";
 
         } else {
             circleTurn = true;
+            document.querySelector(".turn").innerHTML = "O";
             this.currentSymbol = "O";
         }
         //console.log(circleTurn);
@@ -65,6 +68,7 @@ const Game = (function(){
         // if winner, change bottom text
 
         function _displayWinner(winner){
+            document.querySelector(".turn").innerHTML = "";
             const winnerText = document.querySelector(".winner");
             winnerText.innerHTML = `Winner: ${winner}`;
         }

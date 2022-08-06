@@ -8,6 +8,15 @@ body{
     color:white;
     font-family: 'Courier New', Courier, monospace;
 }
+.turn{
+    color: lightcyan;
+    position: fixed;
+    opacity: 10%;
+    z-index: -1;
+    font-size: 500px;
+    left:10%;
+    bottom: 30%;
+}
 .container{
     height: 100vh;
     display: flex;
@@ -25,7 +34,7 @@ body{
     gap:10px;
 }
 .square{
-    background-color: wheat;
+    background-color: lightcyan;
     color:black;
     font-size: 7rem;
     font-weight: bold;
