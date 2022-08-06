@@ -2,8 +2,16 @@
 // add eventListeners to each square to listen for click
 // renderBoard() - loops through array, fills in the pieces
 const Gameboard = (function(){
+    const squares = document.querySelectorAll(".square");
+    squares.forEach(square => {
+        square.addEventListener('click', function(){
+            square.innerHTML = "X"
+        });
+    });    
 
+    return {};
 })();
+
 
 // Game Object (module)
 // checkWinner() - checks if any player has 3 in a row

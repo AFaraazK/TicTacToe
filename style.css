@@ -26,4 +26,14 @@ body{
 }
 .square{
     background-color: wheat;
+    color:black;
+    font-size: 7rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.square:hover{
+    transform: scale(1.013);
 }
