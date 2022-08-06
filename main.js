@@ -1,4 +1,4 @@
-let pc = new Player("X");
+let pc = new Player();
 
 // Gameboard object (module)
 // add eventListeners to each square to listen for click
@@ -42,9 +42,9 @@ const Game = (function(){
 //      -> check that space isn't already filled (index = '')
 //      -> keeps track of each symbol in a separate array
 
-function Player(symbol){
-    let ownership = [];
-    this.symbol = symbol;
+function Player(){
+    let ownershipX = [];
+    let ownershipO = [];
 
     function verifyClick(square){
         if(square.innerHTML == ""){
@@ -55,11 +55,16 @@ function Player(symbol){
     }
     function playerClick(square){
         if(verifyClick(square)){    
-            ownership.push(square.id);
+            if(Game.currentSymbol == "X"){
+                ownershipX.push(square.id);
+                console.log("X:", ownershipX);
+            }else{
+                ownershipO.push(square.id);
+                console.log("O:", ownershipO);
+            }
             square.innerHTML = Game.currentSymbol;
-            console.log(ownership);
             Game.swapTurns();
         }
     }
-    return {playerClick,symbol,ownership};
+    return {playerClick,ownershipX, ownershipO};
 };
